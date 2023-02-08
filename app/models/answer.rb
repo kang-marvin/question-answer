@@ -3,7 +3,6 @@ class Answer < ApplicationRecord
 
   has_rich_text :content
 
-  enum :solution, { incorrect: 0, correct: 1 }, suffix: true
 
   def content_body(self)
     super(self)
