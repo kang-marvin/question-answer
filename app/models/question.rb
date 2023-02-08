@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: questions
+#
+#  id               :bigint           not null, primary key
+#  category_id      :bigint           not null
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  difficulty_level :integer          default("simple")
+#
 class Question < ApplicationRecord
   TIMER = {
     simple: 15, easy: 25,

@@ -66,6 +66,9 @@ GEM
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
+    annotate (3.2.0)
+      activerecord (>= 3.2, < 8.0)
+      rake (>= 10.4, < 14.0)
     bindex (0.8.1)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
@@ -105,7 +108,7 @@ GEM
       net-smtp
     marcel (1.0.2)
     method_source (1.0.0)
-    mini_magick (4.11.0)
+    mini_magick (4.12.0)
     mini_mime (1.1.2)
     minitest (5.17.0)
     msgpack (1.6.0)
@@ -191,6 +194,7 @@ PLATFORMS
   x86_64-darwin-21
 
 DEPENDENCIES
+  annotate
   bootsnap
   cssbundling-rails
   debug
