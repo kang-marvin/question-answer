@@ -4,7 +4,7 @@ class Answer < ApplicationRecord
   has_rich_text :content
 
 
-  def content_body(self)
+  def content_body
     super(self)
   end
 end

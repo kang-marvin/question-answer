@@ -6,7 +6,7 @@ class Question < ApplicationRecord
 
   validates :content, presence: true
 
-  def content_body(self)
+  def content_body
     super(self)
   end
 end
