@@ -4,5 +4,6 @@
 
 import { application } from "./application"
 
-import HelloController from "./hello_controller"
-application.register("hello", HelloController)
+import ReactAppController from "./react_app_controller"
+application.register("react-app", ReactAppController)
+
