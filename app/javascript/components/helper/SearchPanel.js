@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import { InputField, SubmitField } from "../form_fields";
+
 const SearchPanel = props => {
   const {
     searchString = '',
@@ -21,20 +23,17 @@ const SearchPanel = props => {
 
   return (
     <div>
-      {/* Input Field */}
-      <input
-        type="text"
-        value={queryString}
+      <InputField
+        queryString={queryString}
         placeholder={placeholder}
-        onChange={handleInputChange}
+        handleInputChange={handleInputChange}
       />
 
       {/* Submit Button */}
-      <button
-        onClick={handleSubmit}
-      >
-        {label}
-      </button>
+      <SubmitField
+        label={label}
+        handleSubmit={handleSubmit}
+      />
     </div>
   )
 }
