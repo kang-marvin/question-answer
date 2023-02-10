@@ -2,16 +2,14 @@
 import React, { Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 
-import Contact from "./container/Contact";
-import Content from "./container/Content";
+import CategoryPage from "./pages/CategoryPage";
 
 
 const routes = () => {
   return (
     <Suspense fallback={null}>
       <Routes>
-        <Route exact path="/contact" element={<Contact />} />
-        <Route exact path="/content" element={<Content />} />
+        <Route exact path="/" element={<CategoryPage />} />
       </Routes>
     </Suspense>
   );
