@@ -1,6 +1,5 @@
 class AnswerSerializer < ActiveModel::Serializer
-  attributes :id,
-             :content_body,
+  attributes :content_body,
              :is_correct
 
   def is_correct
