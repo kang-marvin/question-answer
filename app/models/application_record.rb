@@ -3,5 +3,7 @@ class ApplicationRecord < ActiveRecord::Base
 
   def content_body(parent)
     parent.content.body.to_html
+  rescue
+    nil
   end
 end
