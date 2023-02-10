@@ -9,8 +9,10 @@ Rails.application.routes.draw do
     scope :v1 do
 
       # Category Resource
-
       get 'categories', to: 'category#index'
+
+      # Question Resource
+      get 'question', to: 'question#show'
     end
   end
 end
