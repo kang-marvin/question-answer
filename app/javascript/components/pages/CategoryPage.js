@@ -5,13 +5,18 @@ import ListCategories from "../helper/CategoryPanel";
 
 import SearchPanel from "../helper/SearchPanel";
 
+const INITIAL_STATE = {
+  searchString: '',
+  currentPage: 1,
+  categories: []
+}
+
 const FetchCategoriesList = (searchParams) => {
   return categoryApi.getCategories(searchParams);
 }
 
 const CategoryPage = () => {
-
-  const [state, setState] = useState({ currentPage: 1, categories: [] })
+  const [state, setState] = useState(INITIAL_STATE)
 
   useEffect(() => {
     FetchAndUpdateCategories({page: state.currentPage})
@@ -19,7 +24,11 @@ const CategoryPage = () => {
 
   const FetchAndUpdateCategories = (searchParams) => {
     FetchCategoriesList(searchParams).then((response) => {
-      setState({...state, categories: (response.data || [])})
+      setState({
+        ...state,
+        categories: (response.data || []),
+        searchString: (searchParams.searchString || '')
+      })
     })
   }
 
@@ -31,6 +40,7 @@ const CategoryPage = () => {
     <div>
       {/* Search Panel */}
       <SearchPanel
+        searchString={state.searchString}
         placeholder={"Search categories"}
         handleSearch={handleSearch}
       />

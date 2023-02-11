@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { InputField, SubmitField } from "../form_fields";
 
@@ -12,13 +12,16 @@ const SearchPanel = props => {
 
   const [queryString, setQueryString] = useState(searchString);
 
+  useEffect(() => {
+    setQueryString(searchString)
+  }, [searchString])
+
   const handleInputChange = (e) => {
     setQueryString(e.target.value)
   }
 
   const handleSubmit = () => {
     handleSearch({ searchString: queryString })
-    setQueryString("")
   }
 
   return (
