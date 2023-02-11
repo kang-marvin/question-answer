@@ -1,7 +1,7 @@
 import React from "react";
 
 const className = `
-  shadow bg-purple-500
+  shadow bg-purple-500 w-full
   hover:bg-purple-400
   focus:shadow-outline
   focus:outline-none text-white

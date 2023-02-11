@@ -22,15 +22,15 @@ const SearchPanel = props => {
   }
 
   return (
-    <div class="md:flex md:items-center mb-6 gap-1">
-      <div class="md:w-2/3">
+    <div className="md:flex md:items-center mb-6 gap-1">
+      <div className="md:w-2/3">
         <InputField
           queryString={queryString}
           placeholder={placeholder}
           handleInputChange={handleInputChange}
         />
       </div>
-      <div class="md:w-1/3">
+      <div className="md:w-1/3">
         <SubmitField
           label={label}
           handleSubmit={handleSubmit}
