@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react"
 import { categoryApi, questionApi } from "../../api"
 
+const ZERO = 0
+
 const INITIAL_CATEGORY = {
   id: null,
   title: null,
-  questions_ids: []
+  question_ids: []
 }
 
 const INITIAL_QUESTION = {
   id: null,
   content_body: null,
-  countdown_timer: 0,
+  countdown_timer: ZERO,
   answers: []
 }
 
@@ -23,17 +25,17 @@ const FetchCategoryQuestion = (params) => {
 }
 
 const CategoryQuestionsCount = (state) => {
-  return state.category.questions_ids.length
+  return state.category.question_ids?.length || ZERO
 }
 
 const QuestionAtPositionIndex = (state, index) => {
-  return (state.category.questions_ids[index] || null)
+  return state.category.question_ids[Number(index)]
 }
 
 const QuestionsPage = props => {
 
   const [state, setState] = useState({
-    currentQuestionIndex: null,
+    nextQuestionIndex: ZERO,
     category: INITIAL_CATEGORY,
     question: INITIAL_QUESTION
   })
@@ -45,21 +47,24 @@ const QuestionsPage = props => {
         category: (response.data.category || INITIAL_CATEGORY)
       })
     })
-    FetchAndUpdateQuestion({
-      identifier: QuestionAtPositionIndex(state, state.currentQuestionIndex)
-    })
-  }, [state.category])
+  }, [])
 
-  const FetchAndUpdateQuestion = (params) => {
+  useEffect(() => {
     if (CategoryQuestionsCount(state) > 0) {
-      FetchCategoryQuestion(params).then((response) => {
-        setState({
-          ...state,
-          question: (response.data.question || INITIAL_QUESTION),
-          currentQuestionIndex: (state.currentQuestionIndex + 1 || 0)
-        })
+      FetchAndUpdateQuestion({
+        identifier: QuestionAtPositionIndex(state, state.nextQuestionIndex)
       })
     }
+  }, [state.category.id])
+
+  const FetchAndUpdateQuestion = (params) => {
+    FetchCategoryQuestion(params).then((response) => {
+      setState({
+        ...state,
+        question: (response.data.question || INITIAL_QUESTION),
+        nextQuestionIndex: (state.nextQuestionIndex + 1)
+      })
+    })
   }
 
   return (
@@ -68,16 +73,22 @@ const QuestionsPage = props => {
         <div className="flex py-4 px-2 bg-gray-200">
           {/* Category Name */}
           <div className="flex-auto w-4/5">
-            <p className="bold">[[TITLE]]</p>
+            <p className="bold">{state.category.title}</p>
           </div>
           {/* Remaining Questions Count */}
           <div className="flex-auto w-1/5">
-            <p className="float-right">[[X questions to go]]</p>
+            <p className="float-right">
+              {`${CategoryQuestionsCount(state)} questions to go`}
+            </p>
           </div>
         </div>
 
         {/* Progress Bar */}
-        <progress className="w-full bg-teal-300 h-2 mb-4 shadow-inner" value={2} max={5}></progress>
+        <progress
+          className="w-full bg-teal-300 h-2 mb-4 shadow-inner"
+          value={state.nextQuestionIndex}
+          max={CategoryQuestionsCount(state)}
+        ></progress>
 
         <div className="flex flex-col p-8">
           {/* Question content */}
