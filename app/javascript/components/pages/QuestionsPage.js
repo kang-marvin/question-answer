@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import { categoryApi, questionApi } from "../../api"
 
 import CategoryPanel from "../helper/CategoryPanel"
+import TimerPanel from "../helper/TimerPanel"
 import ProgressBarField from "../form_fields/ProgressBarField"
 
 const ZERO = 0
@@ -15,7 +16,7 @@ const INITIAL_CATEGORY = {
 const INITIAL_QUESTION = {
   id: null,
   content_body: null,
-  countdown_timer: ZERO,
+  countdown_timer: null,
   answers: []
 }
 
@@ -70,6 +71,10 @@ const QuestionsPage = props => {
     })
   }
 
+  const handleStopTimer = () => {
+    console.log("timer stopped")
+  }
+
   return (
     <div className="flex gap-1">
       <div className="flex-auto w-11/12 rounded overflow-hidden shadow-lg">
@@ -114,17 +119,10 @@ const QuestionsPage = props => {
         </div>
       </div>
 
-      <div className="flex-auto w-1/12">
-        <div className="
-          overflow-hidden shadow-lg p-4
-          aspect-square flex flex-col
-          items-center justify-center bg-red-400
-          text-slate-200 rounded-sm
-        ">
-          <h4 className="text-4xl font-medium">00:00</h4>
-          <span className="font-small text-sm">[[TIME IS UP]]</span>
-        </div>
-      </div>
+      <TimerPanel
+        countdown={Number(state.question.countdown_timer)}
+        stopTimer={handleStopTimer}
+      />
     </div>
 
   )
