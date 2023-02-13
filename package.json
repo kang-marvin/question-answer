@@ -12,7 +12,8 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.8.1",
     "tailwindcss": "^3.2.4",
-    "trix": "^2.0.4"
+    "trix": "^2.0.4",
+    "uuid": "^9.0.0"
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets --loader:.js=jsx",
