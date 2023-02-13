@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
       # Category Resource
       get 'categories', to: 'category#index'
+      get 'category',   to: 'category#show'
 
       # Question Resource
       get 'question', to: 'question#show'
