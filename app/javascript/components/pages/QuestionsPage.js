@@ -1,6 +1,18 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { categoryApi, questionApi } from "../../api"
 
+const INITIAL_CATEGORY = {
+  id: null,
+  title: null,
+  questions_ids: []
+}
+
+const INITIAL_QUESTION = {
+  id: null,
+  content_body: null,
+  countdown_timer: 0,
+  answers: []
+}
 
 const FetchCategory = (params) => {
   return categoryApi.getCategory(params)
@@ -10,9 +22,45 @@ const FetchCategoryQuestion = (params) => {
   return questionApi.getQuestion(params)
 }
 
+const CategoryQuestionsCount = (state) => {
+  return state.category.questions_ids.length
+}
+
+const QuestionAtPositionIndex = (state, index) => {
+  return (state.category.questions_ids[index] || null)
+}
+
 const QuestionsPage = props => {
 
-  const [state, setState] = useState({})
+  const [state, setState] = useState({
+    currentQuestionIndex: null,
+    category: INITIAL_CATEGORY,
+    question: INITIAL_QUESTION
+  })
+
+  useEffect(() => {
+    FetchCategory({ identifier: 10 }).then((response) => {
+      setState({
+        ...state,
+        category: (response.data.category || INITIAL_CATEGORY)
+      })
+    })
+    FetchAndUpdateQuestion({
+      identifier: QuestionAtPositionIndex(state, state.currentQuestionIndex)
+    })
+  }, [state.category])
+
+  const FetchAndUpdateQuestion = (params) => {
+    if (CategoryQuestionsCount(state) > 0) {
+      FetchCategoryQuestion(params).then((response) => {
+        setState({
+          ...state,
+          question: (response.data.question || INITIAL_QUESTION),
+          currentQuestionIndex: (state.currentQuestionIndex + 1 || 0)
+        })
+      })
+    }
+  }
 
   return (
     <div className="flex gap-1">
