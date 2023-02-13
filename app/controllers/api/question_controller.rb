@@ -4,7 +4,6 @@ module API
     before_action :fetch_question, only: %i[show]
 
     def show
-      puts @question_params
       render json: @question,
              serializer: QuestionSerializer,
              status: :ok
