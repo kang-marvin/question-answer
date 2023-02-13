@@ -1,14 +1,22 @@
 import React, { useEffect, useState } from "react";
 
 import { categoryApi } from "../../api";
-import ListCategories from "../helper/CategoryPanel";
+import ListCategoriesPanel from "../helper/ListCategoriesPanel";
 
 import SearchPanel from "../helper/SearchPanel";
+const DEFAULT_PAGINATION = {
+  current_page: 1,
+  next_page: null,
+  previous_page: null,
+  total_pages: 1,
+  total_entries: 0
+}
 
 const INITIAL_STATE = {
   searchString: '',
   currentPage: 1,
-  categories: []
+  categories: [],
+  pagination: DEFAULT_PAGINATION
 }
 
 const FetchCategoriesList = (searchParams) => {
@@ -26,8 +34,9 @@ const CategoryPage = () => {
     FetchCategoriesList(searchParams).then((response) => {
       setState({
         ...state,
-        categories: (response.data || []),
-        searchString: (searchParams.searchString || '')
+        categories: (response.data.categories || []),
+        searchString: (searchParams.searchString || ''),
+        pagination: (response.data.meta || DEFAULT_PAGINATION)
       })
     })
   }
@@ -46,7 +55,7 @@ const CategoryPage = () => {
       />
 
       {/* List Categories */}
-      <ListCategories
+      <ListCategoriesPanel
         categories={state.categories}
       />
 
