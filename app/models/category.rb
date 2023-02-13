@@ -10,7 +10,9 @@
 class Category < ApplicationRecord
   has_many :questions, dependent: :destroy
 
-  validates :title, presence: true
+  validates :title,
+            presence: true,
+            uniqueness: true
 
   scope :filter_title, lambda { |query|
     where('title ILIKE :query', query: "%#{query}%") if query
