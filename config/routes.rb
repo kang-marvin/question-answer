@@ -3,7 +3,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "dashboard#index"
-  # get '*path', to: 'dashboard#index', via: :all
 
   namespace :api do
     scope :v1 do
@@ -16,4 +15,6 @@ Rails.application.routes.draw do
       get 'question', to: 'question#show'
     end
   end
+
+  get '*path', to: 'dashboard#index', via: :all
 end
