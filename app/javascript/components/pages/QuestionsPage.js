@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { categoryApi, questionApi } from "../../api"
+
+import CategoryPanel from "../helper/CategoryPanel"
 import ProgressBarField from "../form_fields/ProgressBarField"
 
 const ZERO = 0
@@ -71,20 +73,12 @@ const QuestionsPage = props => {
   return (
     <div className="flex gap-1">
       <div className="flex-auto w-11/12 rounded overflow-hidden shadow-lg">
-        <div className="flex py-4 px-2 bg-gray-200">
-          {/* Category Name */}
-          <div className="flex-auto w-4/5">
-            <p className="bold">{state.category.title}</p>
-          </div>
-          {/* Remaining Questions Count */}
-          <div className="flex-auto w-1/5">
-            <p className="float-right">
-              {`${CategoryQuestionsCount(state)} questions to go`}
-            </p>
-          </div>
-        </div>
 
-        {/* Progress Bar */}
+        <CategoryPanel
+          title={state.category.title}
+          questionsCount={CategoryQuestionsCount(state)}
+        />
+
         <ProgressBarField
           currentValue={state.nextQuestionIndex}
           maximumValue={CategoryQuestionsCount(state)}
