@@ -1,8 +1,18 @@
-import React from "react";
+import React from "react"
+import { categoryApi, questionApi } from "../../api"
+
+
+const FetchCategory = (params) => {
+  return categoryApi.getCategory(params)
+}
+
+const FetchCategoryQuestion = (params) => {
+  return questionApi.getQuestion(params)
+}
 
 const QuestionsPage = props => {
 
-  const {} = props
+  const [state, setState] = useState({})
 
   return (
     <div className="flex gap-1">

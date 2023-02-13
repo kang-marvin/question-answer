@@ -6,6 +6,11 @@ class category {
     const queryString = urlUtils.toQueryString(searchParams);
     return httpMethods.get(`categories?${queryString}`)
   }
+
+  static getCategory(params = { identifier: 0 }) {
+    const queryString = urlUtils.toQueryString(params);
+    return httpMethods.get(`category?${queryString}`)
+  }
 }
 
 export default category;
