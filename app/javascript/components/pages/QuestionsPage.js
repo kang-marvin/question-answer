@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { categoryApi, questionApi } from "../../api"
+import ProgressBarField from "../form_fields/ProgressBarField"
 
 const ZERO = 0
 
@@ -84,11 +85,10 @@ const QuestionsPage = props => {
         </div>
 
         {/* Progress Bar */}
-        <progress
-          className="w-full bg-teal-300 h-2 mb-4 shadow-inner"
-          value={state.nextQuestionIndex}
-          max={CategoryQuestionsCount(state)}
-        ></progress>
+        <ProgressBarField
+          currentValue={state.nextQuestionIndex}
+          maximumValue={CategoryQuestionsCount(state)}
+        />
 
         <div className="flex flex-col p-8">
           {/* Question content */}
