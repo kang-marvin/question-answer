@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
 
 import { categoryApi } from "../../api";
+import PaginationPanel from "../helper/PaginationPanel";
 import ListCategoriesPanel from "../helper/ListCategoriesPanel";
 
 import SearchPanel from "../helper/SearchPanel";
 const DEFAULT_PAGINATION = {
-  current_page: 1,
-  next_page: null,
-  previous_page: null,
-  total_pages: 1,
-  total_entries: 0
+  currentPage: 1,
+  nextPage: null,
+  previousPage: null,
+  totalPages: 1,
+  totalEntries: 0
 }
 
 const INITIAL_STATE = {
   searchString: '',
-  currentPage: 1,
   categories: [],
   pagination: DEFAULT_PAGINATION
 }
@@ -27,8 +27,8 @@ const CategoryPage = () => {
   const [state, setState] = useState(INITIAL_STATE)
 
   useEffect(() => {
-    FetchAndUpdateCategories({page: state.currentPage})
-  }, [state.currentPage])
+    FetchAndUpdateCategories({page: state.pagination.currentPage})
+  }, [state.pagination.currentPage])
 
   const FetchAndUpdateCategories = (searchParams) => {
     FetchCategoriesList(searchParams).then((response) => {
@@ -45,6 +45,13 @@ const CategoryPage = () => {
     FetchAndUpdateCategories(searchParams)
   }
 
+  const handlePaginate = (page) => {
+    FetchAndUpdateCategories({
+      searchString: state.searchString,
+      page: page
+    })
+  }
+
   return (
     <div>
       {/* Search Panel */}
@@ -57,6 +64,12 @@ const CategoryPage = () => {
       {/* List Categories */}
       <ListCategoriesPanel
         categories={state.categories}
+      />
+
+      {/* Add Pagination */}
+      <PaginationPanel
+        pagination={state.pagination}
+        handlePaginate={handlePaginate}
       />
 
     </div>
