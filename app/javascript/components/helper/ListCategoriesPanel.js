@@ -1,15 +1,17 @@
 
-import React, { useId } from "react"
+import React from "react"
+import { v4 as uuid } from 'uuid'
 
 const CategoryPanel = props => {
   const { title } = props
 
   return (
     <div
+      key={uuid()}
       className="
         max-w-sm rounded overflow-hidden
-        shadow-lg inline-block bg-gray-200"
-      key={useId}
+        shadow-lg inline-block bg-gray-200
+      "
     >
       <div className="px-4 py-4 font-semibold text-center">
         {title}
@@ -18,7 +20,7 @@ const CategoryPanel = props => {
   )
 }
 
-const ListCategories = props => {
+const ListCategoriesPanel = props => {
   const { categories } = props
 
   return (
@@ -31,4 +33,4 @@ const ListCategories = props => {
 }
 
 
-export default ListCategories
+export default ListCategoriesPanel
