@@ -1,6 +1,5 @@
 module API
   class QuestionController < ApplicationController
-
     before_action :fetch_question, only: %i[show]
 
     def show
@@ -13,7 +12,11 @@ module API
 
     def fetch_question
       @question =
-        Question.find(question_params[:identifier]) rescue Question.new
+        begin
+          Question.find(question_params[:identifier])
+        rescue StandardError
+          Question.new
+        end
     end
 
     def question_params

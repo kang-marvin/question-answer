@@ -14,24 +14,24 @@ Category.delete_all
 def create_questions(category)
   5.times do |count|
     question = Question.create({
-      category: category,
-      difficulty_level: Question::TIMER.keys.sample,
-      content: "What is the number #{count} squared?"
-    })
+                                 category: category,
+                                 difficulty_level: Question::TIMER.keys.sample,
+                                 content: "What is the number #{count} squared?"
+                               })
     create_answers(question)
   end
 end
 
 # Create Questions and Answers
 def create_answers(question)
-  correct_answer_index = [1,2,3,4].sample
+  correct_answer_index = [1, 2, 3, 4].sample
 
   4.times do |count|
     Answer.create({
-      question: question,
-      is_correct_solution: (count === correct_answer_index),
-      content: (count * 3)
-    })
+                    question: question,
+                    is_correct_solution: (count == correct_answer_index),
+                    content: (count * 3)
+                  })
   end
 end
 

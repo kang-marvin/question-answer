@@ -12,7 +12,7 @@ class Category < ApplicationRecord
 
   validates :title, presence: true
 
-  scope :filter_title, -> (query) do
+  scope :filter_title, lambda { |query|
     where('title ILIKE :query', query: "%#{query}%") if query
-  end
+  }
 end

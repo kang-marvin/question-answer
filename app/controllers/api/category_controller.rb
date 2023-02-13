@@ -5,9 +5,8 @@ module API
     def index
       categories =
         Category
-          .joins(:questions)
-          .filter_title(category_params[:searchString])
-          .paginate(page: params[:page], per_page: 10)
+        .filter_title(category_params[:searchString])
+        .paginate(page: params[:page], per_page: 10)
 
       render json: categories,
              each_serializer: LimitedCategorySerializer,
@@ -25,12 +24,15 @@ module API
 
     def fetch_category
       @category =
-        Category.find(category_params[:identifier]) rescue Category.new
+        begin
+          Category.find(category_params[:identifier])
+        rescue StandardError
+          Category.new
+        end
     end
 
     def category_params
       params.permit(:searchString, :page, :identifier)
     end
-
   end
 end
