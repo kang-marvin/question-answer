@@ -45,22 +45,20 @@ const TimerPanel = props => {
   }, [timer])
 
   return (
-    <div className="flex-auto w-1/12">
-      <div className={`
-        overflow-hidden shadow-lg p-4
-        aspect-square flex flex-col
-        items-center justify-center ${TimerColor(timer)}
-        text-slate-200 rounded-sm
-      `}>
-        <h4 className="text-4xl font-medium">
-          {CalculateRemainingTime(timer)}
-        </h4>
-        {timer <= 0 && (
-          <span className="font-small text-sm">
-            time is up
-          </span>
-        )}
-      </div>
+    <div className={`
+      overflow-hidden shadow-lg p-4
+      aspect-square flex flex-col
+      items-center justify-center ${TimerColor(timer)}
+      text-slate-200 rounded-sm gap-1
+    `}>
+      <h4 className="text-4xl font-medium">
+        {CalculateRemainingTime(timer)}
+      </h4>
+      {timer <= 0 && (
+        <span className="font-small text-sm">
+          time is up
+        </span>
+      )}
     </div>
   )
 }

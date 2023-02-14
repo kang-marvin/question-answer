@@ -4,6 +4,7 @@ import { categoryApi, questionApi } from "../../api"
 import CategoryPanel from "../helper/CategoryPanel"
 import QuestionPanel from "../helper/QuestionPanel"
 import TimerPanel from "../helper/TimerPanel"
+import ResultsPanel from "../helper/ResultsPanel"
 
 import ProgressBarField from "../form_fields/ProgressBarField"
 
@@ -140,11 +141,20 @@ const QuestionsPage = props => {
 
       </div>
 
-      <TimerPanel
-        countdown={Number(30)}
-        stopTimer={handleStopTimer}
-        timerReference={timerReference}
-      />
+      <div className="w-1/12 flex flex-col">
+        <TimerPanel
+          countdown={Number(30)}
+          stopTimer={handleStopTimer}
+          timerReference={timerReference}
+        />
+
+        <span className="h-3/5"></span>
+
+        <ResultsPanel
+          results={state.controlsManager.submittedAnswers}
+          totalQuestionsCount={CategoryQuestionsCount(state)}
+        />
+      </div>
     </div>
   )
 }
