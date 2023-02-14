@@ -1,5 +1,5 @@
 
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 
 const NoSubmittedAnswerButton = () => {
   return (
@@ -19,16 +19,15 @@ const QuestionControlsPanel = props => {
 
   const {
     hasTimeElapsed,
+    hasSubmittedAnswer,
     selectedAnswer,
     isLastQuestion,
-    handleSubmitAnswer
+    handleSubmitAnswer,
+    loadNextQuestion
   } = props
-
-  const [hasSubmittedAnswer, setHasSubmittedAnswer] = useState(false)
 
   const handleSubmit = () => {
     handleSubmitAnswer(selectedAnswer)
-    setHasSubmittedAnswer(true)
   }
 
   return (
@@ -66,7 +65,7 @@ const QuestionControlsPanel = props => {
             px-2 m-2 border rounded
             uppercase
           "
-          onClick={null}
+          onClick={loadNextQuestion}
         >Next Question</button>
       }
 
@@ -82,7 +81,7 @@ const QuestionControlsPanel = props => {
             uppercase
           "
           onClick={null}
-        >View Results</button>
+        >Finished</button>
       }
 
     </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 
 import QuestionControlsPanel from "./QuestionControlsPanel"
 
@@ -26,6 +26,7 @@ const QuestionPanel = props => {
     question,
     isLastQuestion,
     controlsManager,
+    loadNextQuestion,
     handleSubmitAnswer,
   } = props
 
@@ -33,6 +34,13 @@ const QuestionPanel = props => {
     selectedAnswer: null,
     submittedAnswer: null
   })
+
+  useEffect(() => {
+    setState({
+      selectedAnswer: null,
+      submittedAnswer: null
+    })
+  }, [question])
 
   const handleSelectedAnswer = selectedAnswer => {
     setState({...state, selectedAnswer: selectedAnswer })
@@ -71,7 +79,9 @@ const QuestionPanel = props => {
       <QuestionControlsPanel
         hasTimeElapsed={controlsManager.hasTimeElapsed}
         selectedAnswer={state.selectedAnswer}
+        hasSubmittedAnswer={state.submittedAnswer !== null}
         isLastQuestion={isLastQuestion}
+        loadNextQuestion={loadNextQuestion}
         handleSubmitAnswer={checkedSubmittedAnswerThenForward}
       />
     </div>
