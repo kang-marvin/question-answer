@@ -1,16 +1,16 @@
 
-import React from "react"
+import React, { useState } from "react"
 
 const NoSubmittedAnswerButton = () => {
   return (
     <button
       disabled
       className="
-        flex-auto w-4/12 bg-red-100 text-red-500
-        font-bold py-3 px-4 m-2 border rounded-full
+        flex-auto w-3/12 bg-red-100 text-red-500
+        font-bold py-3 px-2 m-2 border rounded-full
       "
     >
-      [[NO ANSWER SUBMITTED]]
+      NO ANSWER SUBMITTED
     </button>
   )
 }
@@ -18,30 +18,39 @@ const NoSubmittedAnswerButton = () => {
 const QuestionControlsPanel = props => {
 
   const {
-    hasTimeElapsed = false,
-    hasSelectedAnAnswer = false,
-    hasSubmittedAnswer = true,
-    isLastQuestion = false,
-    handleSubmit
+    hasTimeElapsed,
+    selectedAnswer,
+    isLastQuestion,
+    handleSubmitAnswer
   } = props
+
+  const [hasSubmittedAnswer, setHasSubmittedAnswer] = useState(false)
+
+  const handleSubmit = () => {
+    handleSubmitAnswer(selectedAnswer)
+    setHasSubmittedAnswer(true)
+  }
+
+  console.log(hasSubmittedAnswer)
 
   return (
     <div className="flex px-2 m-4">
       <span className="flex-auto w-8/12"></span>
       {
-        hasSubmittedAnswer === false &&
-        hasTimeElapsed === true &&
+        hasTimeElapsed &&
+        selectedAnswer === null &&
         <NoSubmittedAnswerButton />
       }
 
       {
         hasTimeElapsed === false &&
+        hasSubmittedAnswer === false &&
         <button
-          disabled={hasSelectedAnAnswer === false}
+          disabled={selectedAnswer === null}
           className="
-            flex-auto w-4/12 bg-sky-700
+            flex-auto w-1/12 bg-sky-700
           text-white font-bold py-3
-            px-4 m-2 border rounded
+            px-2 m-2 border rounded
             uppercase
           "
           onClick={handleSubmit}
@@ -49,30 +58,32 @@ const QuestionControlsPanel = props => {
       }
 
       {
-        hasTimeElapsed === true &&
+        hasTimeElapsed &&
+        hasSubmittedAnswer &&
         isLastQuestion === false &&
         <button
           className="
-            flex-auto w-4/12 bg-sky-700
+            flex-auto w-2/12 bg-sky-700
           text-white font-bold py-3
-            px-4 m-2 border rounded
+            px-2 m-2 border rounded
             uppercase
           "
-          onClick={loadNextQuestion}
+          onClick={null}
         >Next Question</button>
       }
 
       {
-        hasTimeElapsed === true &&
-        isLastQuestion === true &&
+        hasTimeElapsed &&
+        hasSubmittedAnswer &&
+        isLastQuestion &&
         <button
           className="
-            flex-auto w-4/12 bg-sky-700
+            flex-auto w-2/12 bg-sky-700
           text-white font-bold py-3
-            px-4 m-2 border rounded
+            px-2 m-2 border rounded
             uppercase
           "
-          onClick={viewResults}
+          onClick={null}
         >View Results</button>
       }
 

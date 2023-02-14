@@ -1,8 +1,29 @@
-import React, { useId } from "react"
+import React, { useState } from "react"
+
+import QuestionControlsPanel from "./QuestionControlsPanel"
 
 const QuestionPanel = props => {
 
-  const { question, children } = props
+  const {
+    question,
+    isLastQuestion,
+    controlsManager,
+    handleSubmitAnswer,
+  } = props
+
+  const [state, setState] = useState({
+    selectedAnswer: null,
+    submittedAnswer: null
+  })
+
+  const handleSelectedAnswer = selectedAnswer => {
+    setState({...state, selectedAnswer: selectedAnswer })
+  }
+
+  const checkedSubmittedAnswerThenForward = (submittedAnswer) => {
+    setState({...state, submittedAnswer: submittedAnswer })
+    handleSubmitAnswer(submittedAnswer?.is_correct)
+  }
 
   return (
     <div className="flex flex-col p-8">
@@ -15,14 +36,23 @@ const QuestionPanel = props => {
       <div className="flex flex-col gap-2">
         {question.answers.map((answer) => {
           return (
-            <label className="border rounded-b px-4 py-3" key={useId}>
+            <label
+              className="border rounded-b px-4 py-3"
+              key={answer.id}
+              onClick={() => handleSelectedAnswer(answer)}
+            >
               <p className="bg-grey-100">{answer.content_body}</p>
             </label>
           )
         })}
       </div>
 
-      {children}
+      <QuestionControlsPanel
+        hasTimeElapsed={controlsManager.hasTimeElapsed}
+        selectedAnswer={state.selectedAnswer}
+        isLastQuestion={isLastQuestion}
+        handleSubmitAnswer={checkedSubmittedAnswerThenForward}
+      />
     </div>
   )
 }

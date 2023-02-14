@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react"
 import { categoryApi, questionApi } from "../../api"
 
 import CategoryPanel from "../helper/CategoryPanel"
-import TimerPanel from "../helper/TimerPanel"
-import ProgressBarField from "../form_fields/ProgressBarField"
 import QuestionPanel from "../helper/QuestionPanel"
-import QuestionControlsPanel from "../helper/QuestionControlsPanel"
+import TimerPanel from "../helper/TimerPanel"
+
+import ProgressBarField from "../form_fields/ProgressBarField"
 
 const ZERO = 0
 
@@ -38,12 +38,20 @@ const QuestionAtPositionIndex = (state, index) => {
   return state.category.question_ids[Number(index)]
 }
 
+const IsLastQuestionInCategory = (state) => {
+  return (state.nextQuestionIndex >= state.category.question_ids.length)
+}
+
 const QuestionsPage = props => {
 
   const [state, setState] = useState({
     nextQuestionIndex: ZERO,
     category: INITIAL_CATEGORY,
-    question: INITIAL_QUESTION
+    question: INITIAL_QUESTION,
+    controlsManager: {
+      hasTimeElapsed: false,
+      submittedAnswers: []
+    }
   })
 
   useEffect(() => {
@@ -73,12 +81,32 @@ const QuestionsPage = props => {
     })
   }
 
-  const handleStopTimer = () => {
-    console.log("timer stopped")
+  const UpdateControlsManager = (key, value) => {
+    setState({
+      ...state,
+      controlsManager: {
+        ...state.controlsManager,
+        [key]: value
+      }
+    })
   }
 
-  const handleSubmitAnswer = () => {
-    console.log("answer to question submitted")
+  const handleStopTimer = () => {
+    UpdateControlsManager('hasTimeElapsed', true)
+  }
+
+  const handleSubmitAnswer = (submittedAnswer) => {
+    const submittedAnswersList = [
+      ...state.controlsManager.submittedAnswers,
+      submittedAnswer
+    ]
+    setState({
+      ...state,
+      controlsManager: {
+        submittedAnswers: submittedAnswersList,
+        hasTimeElapsed: true
+      }
+    })
   }
 
   return (
@@ -95,20 +123,17 @@ const QuestionsPage = props => {
           maximumValue={CategoryQuestionsCount(state)}
         />
 
-        <QuestionPanel question={state.question}>
-          <QuestionControlsPanel
-            hasTimeElapsed={false}
-            hasSelectedAnAnswer={false}
-            hasSubmittedAnswer={true}
-            isLastQuestion={true}
-            handleSubmit={handleSubmitAnswer}
-          />
-        </QuestionPanel>
+        <QuestionPanel
+          question={state.question}
+          controlsManager={state.controlsManager}
+          isLastQuestion={IsLastQuestionInCategory(state)}
+          handleSubmitAnswer={handleSubmitAnswer}
+        />
 
       </div>
 
       <TimerPanel
-        countdown={Number(state.question.countdown_timer)}
+        countdown={Number(30)}
         stopTimer={handleStopTimer}
       />
     </div>
