@@ -2,6 +2,24 @@ import React, { useState } from "react"
 
 import QuestionControlsPanel from "./QuestionControlsPanel"
 
+const LabelColor = (answer, selectedAnswer, submittedAnswer) => {
+  if (selectedAnswer === null) { return "hover:bg-gray-100" }
+
+  if (submittedAnswer === null) {
+    const result = answer.id === selectedAnswer.id
+      ? "outline-2 outline outline-blue-300 bg-blue-100"
+      : "hover:bg-gray-100"
+    return result
+  } else if (answer.id === submittedAnswer.id) {
+    const result = submittedAnswer.is_correct === "true"
+      ? "outline-2 outline outline-green-300 bg-green-100"
+      : "outline-2 outline outline-red-300 bg-red-100"
+    return result
+  } else if (answer.is_correct === "true") {
+    return "outline-2 outline outline-green-300 bg-green-100"
+  }
+}
+
 const QuestionPanel = props => {
 
   const {
@@ -37,7 +55,10 @@ const QuestionPanel = props => {
         {question.answers.map((answer) => {
           return (
             <label
-              className="border rounded-b px-4 py-3"
+              className={`
+                shadow border rounded-b px-4 py-3
+                ${LabelColor(answer, state.selectedAnswer, state.submittedAnswer)}
+              `}
               key={answer.id}
               onClick={() => handleSelectedAnswer(answer)}
             >
