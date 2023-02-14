@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import { categoryApi, questionApi } from "../../api"
 
 import CategoryPanel from "../helper/CategoryPanel"
@@ -54,6 +54,8 @@ const QuestionsPage = props => {
     }
   })
 
+  const timerReference = useRef();
+
   useEffect(() => {
     FetchCategory({ identifier: 10 }).then((response) => {
       setState({
@@ -91,8 +93,13 @@ const QuestionsPage = props => {
     })
   }
 
+  const ClearTimer = () => {
+    clearTimeout(timerReference.current)
+  }
+
   const handleStopTimer = () => {
     UpdateControlsManager('hasTimeElapsed', true)
+    ClearTimer()
   }
 
   const handleSubmitAnswer = (submittedAnswer) => {
@@ -107,6 +114,7 @@ const QuestionsPage = props => {
         hasTimeElapsed: true
       }
     })
+    ClearTimer()
   }
 
   return (
@@ -135,9 +143,9 @@ const QuestionsPage = props => {
       <TimerPanel
         countdown={Number(30)}
         stopTimer={handleStopTimer}
+        timerReference={timerReference}
       />
     </div>
-
   )
 }
 

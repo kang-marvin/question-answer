@@ -23,7 +23,7 @@ const TimerColor = (count) => {
 
 const TimerPanel = props => {
 
-  const { countdown, stopTimer } = props
+  const { countdown, stopTimer, timerReference } = props
 
   if (countdown === null) {
     return null
@@ -36,6 +36,7 @@ const TimerPanel = props => {
       const timerInterval = setTimeout(() => {
         setTimer(timer - 1)
       }, 1000);
+      timerReference.current = timerInterval
 
       return () => clearTimeout(timerInterval);
     } else {

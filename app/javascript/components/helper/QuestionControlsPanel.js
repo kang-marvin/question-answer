@@ -31,8 +31,6 @@ const QuestionControlsPanel = props => {
     setHasSubmittedAnswer(true)
   }
 
-  console.log(hasSubmittedAnswer)
-
   return (
     <div className="flex px-2 m-4">
       <span className="flex-auto w-8/12"></span>
