@@ -35,6 +35,6 @@ class Question < ApplicationRecord
   end
 
   def countdown_timer
-    TIMER[difficulty_level.to_sym]
+    TIMER[difficulty_level.to_sym].to_i
   end
 end

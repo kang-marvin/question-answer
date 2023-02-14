@@ -55,7 +55,7 @@ const QuestionsPage = props => {
     }
   })
 
-  const timerReference = useRef();
+  const timerReference = useRef(null);
 
   useEffect(() => {
     FetchCategory({ identifier: 10 }).then((response) => {
@@ -68,29 +68,24 @@ const QuestionsPage = props => {
 
   useEffect(() => {
     if (CategoryQuestionsCount(state) > 0) {
-      FetchAndUpdateQuestion({
-        identifier: QuestionAtPositionIndex(state, state.nextQuestionIndex)
-      })
+      FetchAndUpdateQuestion()
     }
   }, [state.category.id])
 
-  const FetchAndUpdateQuestion = (params) => {
+  const FetchAndUpdateQuestion = () => {
+    const params = {
+      identifier: QuestionAtPositionIndex(state, state.nextQuestionIndex)
+    }
     FetchCategoryQuestion(params).then((response) => {
       setState({
         ...state,
         question: (response.data.question || INITIAL_QUESTION),
-        nextQuestionIndex: (state.nextQuestionIndex + 1)
+        nextQuestionIndex: (state.nextQuestionIndex + 1),
+        controlsManager: {
+          ...state.controlsManager,
+          hasTimeElapsed: false
+        }
       })
-    })
-  }
-
-  const UpdateControlsManager = (key, value) => {
-    setState({
-      ...state,
-      controlsManager: {
-        ...state.controlsManager,
-        [key]: value
-      }
     })
   }
 
@@ -99,7 +94,13 @@ const QuestionsPage = props => {
   }
 
   const handleStopTimer = () => {
-    UpdateControlsManager('hasTimeElapsed', true)
+    setState({
+      ...state,
+      controlsManager: {
+        ...state.controlsManager,
+        hasTimeElapsed: true
+      }
+    })
     ClearTimer()
   }
 
@@ -137,13 +138,14 @@ const QuestionsPage = props => {
           controlsManager={state.controlsManager}
           isLastQuestion={IsLastQuestionInCategory(state)}
           handleSubmitAnswer={handleSubmitAnswer}
+          loadNextQuestion={FetchAndUpdateQuestion}
         />
 
       </div>
 
       <div className="w-1/12 flex flex-col">
         <TimerPanel
-          countdown={Number(30)}
+          countdown={state.question.countdown_timer}
           stopTimer={handleStopTimer}
           timerReference={timerReference}
         />
