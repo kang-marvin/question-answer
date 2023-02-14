@@ -1,4 +1,3 @@
-
 import React, { useId } from "react"
 
 const QuestionPanel = props => {

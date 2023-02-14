@@ -5,6 +5,7 @@ import CategoryPanel from "../helper/CategoryPanel"
 import TimerPanel from "../helper/TimerPanel"
 import ProgressBarField from "../form_fields/ProgressBarField"
 import QuestionPanel from "../helper/QuestionPanel"
+import QuestionControlsPanel from "../helper/QuestionControlsPanel"
 
 const ZERO = 0
 
@@ -76,6 +77,10 @@ const QuestionsPage = props => {
     console.log("timer stopped")
   }
 
+  const handleSubmitAnswer = () => {
+    console.log("answer to question submitted")
+  }
+
   return (
     <div className="flex gap-1">
       <div className="flex-auto w-11/12 rounded overflow-hidden shadow-lg">
@@ -91,12 +96,13 @@ const QuestionsPage = props => {
         />
 
         <QuestionPanel question={state.question}>
-          {/* Controls */}
-          <div className="flex px-2 m-4">
-            <span className="flex-auto w-8/12"></span>
-            <button disabled className="flex-auto w-4/12 bg-red-100 text-red-500 font-bold py-3 px-4 m-2 border rounded-full">[[NO ANSWER SUBMITTED]]</button>
-            <button className="flex-auto w-4/12 bg-sky-700 text-white font-bold py-3 px-4 m-2 border rounded">[[NEXT QUESTION]]</button>
-          </div>
+          <QuestionControlsPanel
+            hasTimeElapsed={false}
+            hasSelectedAnAnswer={false}
+            hasSubmittedAnswer={true}
+            isLastQuestion={true}
+            handleSubmit={handleSubmitAnswer}
+          />
         </QuestionPanel>
 
       </div>
