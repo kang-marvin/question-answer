@@ -4,6 +4,7 @@ import { categoryApi, questionApi } from "../../api"
 import CategoryPanel from "../helper/CategoryPanel"
 import TimerPanel from "../helper/TimerPanel"
 import ProgressBarField from "../form_fields/ProgressBarField"
+import QuestionPanel from "../helper/QuestionPanel"
 
 const ZERO = 0
 
@@ -89,34 +90,15 @@ const QuestionsPage = props => {
           maximumValue={CategoryQuestionsCount(state)}
         />
 
-        <div className="flex flex-col p-8">
-          {/* Question content */}
-          <h2 className="text-gray-900 text-xl mb-2">[[QUESTION BODY]]</h2>
-
-          {/* Answer Options */}
-          <div className="flex flex-col gap-2">
-            <label className="border rounded-b px-4 py-3">
-              <p className="bg-grey-100">[[ANSWER 1]]</p>
-            </label>
-            <label className="border rounded-b px-4 py-3">
-              <p className="bg-grey-100">[[ANSWER 2]]</p>
-            </label>
-            <label className="border rounded-b px-4 py-3">
-              <p className="bg-grey-100">[[ANSWER 3]]</p>
-            </label>
-            <label className="border rounded-b px-4 py-3">
-              <p className="bg-grey-100">[[ANSWER 4]]</p>
-            </label>
-          </div>
-
+        <QuestionPanel question={state.question}>
           {/* Controls */}
           <div className="flex px-2 m-4">
             <span className="flex-auto w-8/12"></span>
             <button disabled className="flex-auto w-4/12 bg-red-100 text-red-500 font-bold py-3 px-4 m-2 border rounded-full">[[NO ANSWER SUBMITTED]]</button>
             <button className="flex-auto w-4/12 bg-sky-700 text-white font-bold py-3 px-4 m-2 border rounded">[[NEXT QUESTION]]</button>
           </div>
+        </QuestionPanel>
 
-        </div>
       </div>
 
       <TimerPanel
