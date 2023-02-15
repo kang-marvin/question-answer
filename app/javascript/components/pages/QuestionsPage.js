@@ -125,7 +125,7 @@ const QuestionsPage = () => {
 
   return (
     <div className="flex gap-1">
-      <div className="flex-auto w-11/12 rounded overflow-hidden shadow-lg">
+      <div className="flex-auto w-10/12 rounded overflow-hidden shadow-lg">
 
         <CategoryPanel
           title={state.category.title}
@@ -147,7 +147,7 @@ const QuestionsPage = () => {
 
       </div>
 
-      <div className="w-1/12 flex flex-col">
+      <div className="w-2/12 flex flex-col">
         <TimerPanel
           countdown={state.question.countdown_timer}
           stopTimer={handleStopTimer}
