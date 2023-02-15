@@ -23,36 +23,47 @@ const TimerColor = (count) => {
 
 const TimerPanel = props => {
 
-  const { countdown, stopTimer, timerReference } = props
+  const { countdown, stopTimer, setTimerInterval } = props
 
   if (countdown === null) {
     return null
   }
 
-  const [timer, setTimer] = useState(countdown)
+  const [count, setCount] = useState(countdown)
+
+  const timer = () => {
+    setTimerInterval(
+      setTimeout(() => {
+        setCount(count - 1);
+      }, 1000)
+    );
+  }
+
+  const clearTimer = () => {
+    stopTimer();
+  }
 
   useEffect(() => {
-    if (timer > 0) {
-      const timerInterval = setTimeout(() => {
-        setTimer(timer - 1)
-      }, 1000);
-      timerReference.current = timerInterval
-
-      return () => clearTimeout(timerInterval);
+    if (count > 0) {
+      timer();
     } else {
-      stopTimer()
+      clearTimer();
     }
-  }, [timer])
+  }, [count])
+
+  useEffect(() => {
+    setCount(countdown)
+  }, [props.question, countdown])
 
   return (
     <div className={`
       overflow-hidden shadow-lg p-4
       aspect-square flex flex-col
-      items-center justify-center ${TimerColor(timer)}
+      items-center justify-center ${TimerColor(count)}
       text-slate-200 rounded-sm gap-1
     `}>
       <h4 className="text-4xl font-medium">
-        {CalculateRemainingTime(timer)}
+        {CalculateRemainingTime(count)}
       </h4>
       {timer <= 0 && (
         <span className="font-small text-sm">

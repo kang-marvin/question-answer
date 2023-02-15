@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 
 import { categoryApi, questionApi } from "../../api"
@@ -50,8 +50,8 @@ const IsLastQuestionInCategory = (state) => {
 }
 
 const QuestionsPage = () => {
-
   const { categoryID } = useParams()
+  const [timerInterval, setTimerInterval] = useState(0)
 
   const [state, setState] = useState({
     nextQuestionIndex: ZERO,
@@ -62,8 +62,6 @@ const QuestionsPage = () => {
       submittedAnswers: []
     }
   })
-
-  const timerReference = useRef(null);
 
   useEffect(() => {
     FetchCategory({ identifier: categoryID }).then((response) => {
@@ -97,11 +95,14 @@ const QuestionsPage = () => {
     })
   }
 
-  const ClearTimer = () => {
-    clearTimeout(timerReference.current)
+  const stopTimerCounter = () => {
+    setTimerInterval(
+      clearTimeout(timerInterval)
+    )
   }
 
   const handleStopTimer = () => {
+    stopTimerCounter()
     setState({
       ...state,
       controlsManager: {
@@ -109,7 +110,6 @@ const QuestionsPage = () => {
         hasTimeElapsed: true
       }
     })
-    ClearTimer()
   }
 
   const handleSubmitAnswer = (submittedAnswer) => {
@@ -117,6 +117,7 @@ const QuestionsPage = () => {
       ...state.controlsManager.submittedAnswers,
       submittedAnswer
     ]
+    stopTimerCounter()
     setState({
       ...state,
       controlsManager: {
@@ -124,7 +125,6 @@ const QuestionsPage = () => {
         hasTimeElapsed: true
       }
     })
-    ClearTimer()
   }
 
   return (
@@ -153,9 +153,10 @@ const QuestionsPage = () => {
 
       <div className="w-2/12 flex flex-col">
         <TimerPanel
+          question={state.question}
           countdown={state.question.countdown_timer}
           stopTimer={handleStopTimer}
-          timerReference={timerReference}
+          setTimerInterval={setTimerInterval}
         />
 
         <span className="h-3/5"></span>
