@@ -37,6 +37,10 @@ const CategoryQuestionsCount = (state) => {
   return state.category.question_ids?.length || ZERO
 }
 
+const RemainingQuestionsCount = (state) => {
+  return state.category.question_ids?.length - state.nextQuestionIndex
+}
+
 const QuestionAtPositionIndex = (state, index) => {
   return state.category.question_ids[Number(index)]
 }
@@ -129,7 +133,7 @@ const QuestionsPage = () => {
 
         <CategoryPanel
           title={state.category.title}
-          questionsCount={CategoryQuestionsCount(state)}
+          remainingQuestionsCount={RemainingQuestionsCount(state)}
         />
 
         <ProgressBarField
