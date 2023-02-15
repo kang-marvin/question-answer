@@ -1,15 +1,26 @@
 
 import React from "react"
-import { Navigate } from "react-router-dom"
+import { Link } from "react-router-dom"
+
+const COMMON_BUTTON_CLASS = `
+  font-bold py-3 px-2 m-2
+  border uppercase flex-auto
+  w-4/12
+`
+
+const ACTION_BUTTON_CLASS = `
+  rounded bg-sky-700 text-white
+`
 
 const NoSubmittedAnswerButton = () => {
   return (
     <button
       disabled
-      className="
-        flex-auto w-3/12 bg-red-100 text-red-500
-        font-bold py-3 px-2 m-2 border rounded-full
-      "
+      className={`
+        ${COMMON_BUTTON_CLASS}
+        bg-red-100 text-red-500
+        rounded-full
+      `}
     >
       NO ANSWER SUBMITTED
     </button>
@@ -31,13 +42,9 @@ const QuestionControlsPanel = props => {
     handleSubmitAnswer(selectedAnswer)
   }
 
-  const routeBackToCategoriesPage = () => {
-    <Navigate to="/categories" replace={true} />
-  }
-
   return (
     <div className="flex px-2 m-4">
-      <span className="flex-auto w-8/12"></span>
+      <span className="flex-auto w-4/12"></span>
       {
         hasTimeElapsed &&
         selectedAnswer === null &&
@@ -49,27 +56,22 @@ const QuestionControlsPanel = props => {
         hasSubmittedAnswer === false &&
         <button
           disabled={selectedAnswer === null}
-          className="
-            flex-auto w-1/12 bg-sky-700
-          text-white font-bold py-3
-            px-2 m-2 border rounded
-            uppercase
-          "
+          className={`
+            ${COMMON_BUTTON_CLASS}
+            ${ACTION_BUTTON_CLASS}
+          `}
           onClick={handleSubmit}
         >Submit</button>
       }
 
       {
         hasTimeElapsed &&
-        hasSubmittedAnswer &&
         isLastQuestion === false &&
         <button
-          className="
-            flex-auto w-2/12 bg-sky-700
-          text-white font-bold py-3
-            px-2 m-2 border rounded
-            uppercase
-          "
+          className={`
+            ${COMMON_BUTTON_CLASS}
+            ${ACTION_BUTTON_CLASS}
+          `}
           onClick={loadNextQuestion}
         >Next Question</button>
       }
@@ -78,15 +80,16 @@ const QuestionControlsPanel = props => {
         hasTimeElapsed &&
         hasSubmittedAnswer &&
         isLastQuestion &&
-        <button
-          className="
-            flex-auto w-2/12 bg-sky-700
-          text-white font-bold py-3
-            px-2 m-2 border rounded
-            uppercase
-          "
-          onClick={() => routeBackToCategoriesPage()}
-        >Finished</button>
+        <Link
+          to="/categories"
+          className={`
+            ${COMMON_BUTTON_CLASS}
+            text-black text-center
+            border-blue-300 rounded-md
+          `}
+        >
+          <button>Finished. View Others</button>
+        </Link>
       }
 
     </div>
