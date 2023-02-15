@@ -1,6 +1,6 @@
 /* eslint-disable no-nested-ternary */
 import React, { Suspense } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 
 import CategoryPage from "./pages/CategoryPage";
 import QuestionsPage from "./pages/QuestionsPage";
@@ -10,8 +10,26 @@ const routes = () => {
   return (
     <Suspense fallback={null}>
       <Routes>
-        <Route exact path="/" element={<CategoryPage />} />
-        <Route exact path="/questions" element={<QuestionsPage />} />
+        {/* Categories Page */}
+        <Route
+          exact path="/categories"
+          element={<CategoryPage />}
+        />
+
+        {/* Category Questions Page */}
+        <Route
+          exact
+          path="/category/:identifier/questions"
+          element={<QuestionsPage />}
+        />
+
+        {/* Re-route the root path to Categories Page */}
+        <Route
+          exact
+          path="/"
+          element={<Navigate to="/categories" replace={true} />}
+        />
+
       </Routes>
     </Suspense>
   );

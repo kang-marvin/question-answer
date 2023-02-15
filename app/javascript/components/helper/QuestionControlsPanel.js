@@ -1,5 +1,6 @@
 
-import React, { useEffect, useState } from "react"
+import React from "react"
+import { Navigate } from "react-router-dom"
 
 const NoSubmittedAnswerButton = () => {
   return (
@@ -28,6 +29,10 @@ const QuestionControlsPanel = props => {
 
   const handleSubmit = () => {
     handleSubmitAnswer(selectedAnswer)
+  }
+
+  const routeBackToCategoriesPage = () => {
+    <Navigate to="/categories" replace={true} />
   }
 
   return (
@@ -80,7 +85,7 @@ const QuestionControlsPanel = props => {
             px-2 m-2 border rounded
             uppercase
           "
-          onClick={null}
+          onClick={() => routeBackToCategoriesPage()}
         >Finished</button>
       }
 
