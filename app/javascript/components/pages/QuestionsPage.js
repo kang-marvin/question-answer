@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from "react"
+import { useParams } from "react-router-dom"
+
 import { categoryApi, questionApi } from "../../api"
 
 import CategoryPanel from "../helper/CategoryPanel"
@@ -43,7 +45,9 @@ const IsLastQuestionInCategory = (state) => {
   return (state.nextQuestionIndex >= state.category.question_ids.length)
 }
 
-const QuestionsPage = props => {
+const QuestionsPage = () => {
+
+  const { categoryID } = useParams()
 
   const [state, setState] = useState({
     nextQuestionIndex: ZERO,
@@ -58,13 +62,13 @@ const QuestionsPage = props => {
   const timerReference = useRef(null);
 
   useEffect(() => {
-    FetchCategory({ identifier: 10 }).then((response) => {
+    FetchCategory({ identifier: categoryID }).then((response) => {
       setState({
         ...state,
         category: (response.data.category || INITIAL_CATEGORY)
       })
     })
-  }, [])
+  }, [categoryID])
 
   useEffect(() => {
     if (CategoryQuestionsCount(state) > 0) {

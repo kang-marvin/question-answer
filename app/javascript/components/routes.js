@@ -19,7 +19,7 @@ const routes = () => {
         {/* Category Questions Page */}
         <Route
           exact
-          path="/category/:identifier/questions"
+          path="/category/:categoryID/questions"
           element={<QuestionsPage />}
         />
 
