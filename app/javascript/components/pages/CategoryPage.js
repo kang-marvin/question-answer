@@ -3,15 +3,10 @@ import React, { useEffect, useState } from "react";
 import { categoryApi } from "../../api";
 import PaginationPanel from "../helper/PaginationPanel";
 import ListCategoriesPanel from "../helper/ListCategoriesPanel";
+import InitialState from "../../data/InitialState"
 
 import SearchPanel from "../helper/SearchPanel";
-const DEFAULT_PAGINATION = {
-  currentPage: 1,
-  nextPage: null,
-  previousPage: null,
-  totalPages: 1,
-  totalEntries: 0
-}
+const DEFAULT_PAGINATION = InitialState.pagination
 
 const INITIAL_STATE = {
   searchString: '',

@@ -11,19 +11,13 @@ import ResultsPanel from "../helper/ResultsPanel"
 import ProgressBarField from "../form_fields/ProgressBarField"
 
 const ZERO = 0
+import InitialState from "../../data/InitialState"
 
-const INITIAL_CATEGORY = {
-  id: null,
-  title: null,
-  question_ids: []
-}
+const ZERO = 0
 
-const INITIAL_QUESTION = {
-  id: null,
-  content_body: null,
-  countdown_timer: null,
-  answers: []
-}
+const INITIAL_CATEGORY = InitialState.category
+const INITIAL_QUESTION = InitialState.question
+const INITIAL_CONTROL_MANAGER = InitialState.controlManager
 
 const FetchCategory = (params) => {
   return categoryApi.getCategory(params)
@@ -57,10 +51,7 @@ const QuestionsPage = () => {
     nextQuestionIndex: ZERO,
     category: INITIAL_CATEGORY,
     question: INITIAL_QUESTION,
-    controlsManager: {
-      hasTimeElapsed: false,
-      submittedAnswers: []
-    }
+    controlsManager: INITIAL_CONTROL_MANAGER,
   })
 
   useEffect(() => {
