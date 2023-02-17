@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react"
 
-import { categoryApi } from "../../api";
-import PaginationPanel from "../helper/PaginationPanel";
-import ListCategoriesPanel from "../helper/ListCategoriesPanel";
+import { categoryApi } from "../../api"
 import InitialState from "../../data/InitialState"
+import { ListCategoriesPanel, PaginationPanel, SearchPanel } from "../helper"
 
-import SearchPanel from "../helper/SearchPanel";
 const DEFAULT_PAGINATION = InitialState.pagination
 
 const INITIAL_STATE = {
@@ -15,7 +13,7 @@ const INITIAL_STATE = {
 }
 
 const FetchCategoriesList = (searchParams) => {
-  return categoryApi.getCategories(searchParams);
+  return categoryApi.getCategories(searchParams)
 }
 
 const CategoryPage = () => {

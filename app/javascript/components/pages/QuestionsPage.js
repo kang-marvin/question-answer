@@ -2,15 +2,9 @@ import React, { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 
 import { categoryApi, questionApi } from "../../api"
-
-import CategoryPanel from "../helper/CategoryPanel"
-import QuestionPanel from "../helper/QuestionPanel"
-import TimerPanel from "../helper/TimerPanel"
-import ResultsPanel from "../helper/ResultsPanel"
-
+import { CategoryPanel, QuestionPanel, TimerPanel, ResultsPanel } from "../helper"
 import ProgressBarField from "../form_fields/ProgressBarField"
 
-const ZERO = 0
 import InitialState from "../../data/InitialState"
 
 const ZERO = 0
