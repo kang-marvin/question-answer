@@ -2,7 +2,7 @@ class urlUtils {
   static parameterizeArray = (key, arr) => {
     arr = arr.map(encodeURIComponent);
     return `${key}[]=${arr.join(`&${key}[]=`)}`;
-  }
+  };
 
   static toQueryString(urlObject) {
     const queryString = Object.keys(urlObject)

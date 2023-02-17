@@ -1,10 +1,7 @@
-import React from "react"
+import React from "react";
 
-const ProgressBarField = props => {
-  const {
-    currentValue,
-    maximumValue
-  } = props
+const ProgressBarField = (props) => {
+  const { currentValue, maximumValue } = props;
 
   return (
     <progress
@@ -12,7 +9,7 @@ const ProgressBarField = props => {
       value={currentValue}
       max={maximumValue}
     ></progress>
-  )
-}
+  );
+};
 
-export default ProgressBarField
+export default ProgressBarField;

@@ -1,30 +1,25 @@
-import React, { useEffect, useState } from "react"
-import AnchorTagField from "../form_fields/AnchorTagField"
+import React, { useEffect, useState } from "react";
+import AnchorTagField from "../form_fields/AnchorTagField";
 
-import InitialState from "../../data/InitialState"
+import InitialState from "../../data/InitialState";
 
-const DEFAULT_PAGINATION = InitialState.pagination
+const DEFAULT_PAGINATION = InitialState.pagination;
 
-const PaginationPanel = props => {
+const PaginationPanel = (props) => {
+  const { pagination = DEFAULT_PAGINATION, handlePaginate } = props;
 
-  const {
-    pagination = DEFAULT_PAGINATION,
-    handlePaginate
-  } = props
+  const [meta, setMeta] = useState(DEFAULT_PAGINATION);
 
-  const [meta, setMeta] = useState(DEFAULT_PAGINATION)
-
-  useEffect(()=> {
-    setMeta(pagination)
-  }, [pagination])
+  useEffect(() => {
+    setMeta(pagination);
+  }, [pagination]);
 
   const EmptyFragment = () => {
-    return (<div></div>)
-  }
+    return <div></div>;
+  };
 
   return (
     <div className={`grid grid-cols-9 mt-6 place-content-center gap-1`}>
-
       <EmptyFragment />
       <EmptyFragment />
 
@@ -65,9 +60,8 @@ const PaginationPanel = props => {
 
       <EmptyFragment />
       <EmptyFragment />
-
     </div>
-  )
-}
+  );
+};
 
-export default PaginationPanel
+export default PaginationPanel;

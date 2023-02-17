@@ -1,16 +1,15 @@
-
-import React from "react"
-import { Link } from "react-router-dom"
+import React from "react";
+import { Link } from "react-router-dom";
 
 const COMMON_BUTTON_CLASS = `
   font-bold py-3 px-2 m-2
   border uppercase flex-auto
   w-4/12
-`
+`;
 
 const ACTION_BUTTON_CLASS = `
   rounded bg-sky-700 text-white
-`
+`;
 
 const NoSubmittedAnswerButton = () => {
   return (
@@ -24,36 +23,29 @@ const NoSubmittedAnswerButton = () => {
     >
       NO ANSWER SUBMITTED
     </button>
-  )
-}
+  );
+};
 
-const QuestionControlsPanel = props => {
-
+const QuestionControlsPanel = (props) => {
   const {
     hasTimeElapsed,
     hasSubmittedAnswer,
     selectedAnswer,
     isLastQuestion,
     handleSubmitAnswer,
-    loadNextQuestion
-  } = props
+    loadNextQuestion,
+  } = props;
 
   const handleSubmit = () => {
-    handleSubmitAnswer(selectedAnswer)
-  }
+    handleSubmitAnswer(selectedAnswer);
+  };
 
   return (
     <div className="flex px-2 m-4">
       <span className="flex-auto w-4/12"></span>
-      {
-        hasTimeElapsed &&
-        selectedAnswer === null &&
-        <NoSubmittedAnswerButton />
-      }
+      {hasTimeElapsed && selectedAnswer === null && <NoSubmittedAnswerButton />}
 
-      {
-        hasTimeElapsed === false &&
-        hasSubmittedAnswer === false &&
+      {hasTimeElapsed === false && hasSubmittedAnswer === false && (
         <button
           disabled={selectedAnswer === null}
           className={`
@@ -61,25 +53,24 @@ const QuestionControlsPanel = props => {
             ${ACTION_BUTTON_CLASS}
           `}
           onClick={handleSubmit}
-        >Submit</button>
-      }
+        >
+          Submit
+        </button>
+      )}
 
-      {
-        hasTimeElapsed &&
-        isLastQuestion === false &&
+      {hasTimeElapsed && isLastQuestion === false && (
         <button
           className={`
             ${COMMON_BUTTON_CLASS}
             ${ACTION_BUTTON_CLASS}
           `}
           onClick={loadNextQuestion}
-        >Next Question</button>
-      }
+        >
+          Next Question
+        </button>
+      )}
 
-      {
-        hasTimeElapsed &&
-        hasSubmittedAnswer &&
-        isLastQuestion &&
+      {hasTimeElapsed && hasSubmittedAnswer && isLastQuestion && (
         <Link
           to="/categories"
           className={`
@@ -90,10 +81,9 @@ const QuestionControlsPanel = props => {
         >
           <button>Finished. View Others</button>
         </Link>
-      }
-
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default QuestionControlsPanel
+export default QuestionControlsPanel;

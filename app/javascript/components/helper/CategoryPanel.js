@@ -1,17 +1,14 @@
-import React from "react"
+import React from "react";
 
 const RemainingQuestionsLabel = (count) => {
   if (count < 2) {
-    return "few more questions to go"
+    return "few more questions to go";
   }
-  return `${count} more questions to go`
-}
+  return `${count} more questions to go`;
+};
 
-const CategoryPanel = props => {
-  const {
-    title,
-    remainingQuestionsCount
-  } = props
+const CategoryPanel = (props) => {
+  const { title, remainingQuestionsCount } = props;
 
   return (
     <div className="flex py-4 px-2 bg-gray-200">
@@ -27,7 +24,7 @@ const CategoryPanel = props => {
         </p>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default CategoryPanel
+export default CategoryPanel;

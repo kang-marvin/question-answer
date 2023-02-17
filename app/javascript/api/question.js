@@ -4,7 +4,7 @@ import urlUtils from "../utils/urlUtils";
 class question {
   static getQuestion(params = { identifier: 0 }) {
     const queryString = urlUtils.toQueryString(params);
-    return httpMethods.get(`question?${queryString}`)
+    return httpMethods.get(`question?${queryString}`);
   }
 }
 

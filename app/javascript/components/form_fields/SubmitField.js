@@ -6,22 +6,16 @@ const className = `
   focus:shadow-outline
   focus:outline-none text-white
   font-bold py-2 px-4 rounded
-`
+`;
 
-const SubmitField = props => {
-  const {
-    label,
-    handleSubmit
-  } = props;
+const SubmitField = (props) => {
+  const { label, handleSubmit } = props;
 
   return (
-    <button
-      className={className}
-      onClick={handleSubmit}
-    >
+    <button className={className} onClick={handleSubmit}>
       {label}
     </button>
-  )
-}
+  );
+};
 
 export default SubmitField;

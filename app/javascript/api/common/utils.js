@@ -1,5 +1,5 @@
-const BACKEND = '/api/v1';
+const BACKEND = "/api/v1";
 
-export const APIBaseUrl = path => {
+export const APIBaseUrl = (path) => {
   return `${BACKEND}/${path}`;
-}
+};

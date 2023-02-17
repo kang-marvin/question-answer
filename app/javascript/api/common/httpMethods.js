@@ -1,4 +1,4 @@
-import { APIBaseUrl } from "./utils"
+import { APIBaseUrl } from "./utils";
 
 const headers = new Headers({
   Authorization: null,
@@ -11,7 +11,7 @@ const headers = new Headers({
 const responseData = async (response) => {
   return {
     data: await response.json(),
-    status: response.status
+    status: response.status,
   };
 };
 
@@ -19,18 +19,18 @@ export const get = async (url) => {
   const response = await fetch(APIBaseUrl(url), {
     method: "GET",
     headers: headers,
-  })
+  });
   return responseData(response);
-}
+};
 
 export const post = async (url, body) => {
   const response = await fetch(APIBaseUrl(url), {
     method: "POST",
     headers: headers,
-    body: JSON.stringify(body)
-  })
-  return responseData(response)
-}
+    body: JSON.stringify(body),
+  });
+  return responseData(response);
+};
 
 export const remove = async (url, body) => {
   const response = await fetch(APIBaseUrl(url), {
@@ -39,4 +39,4 @@ export const remove = async (url, body) => {
     body: JSON.stringify(body),
   });
   return responseData(response);
-}
+};

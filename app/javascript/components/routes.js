@@ -5,16 +5,12 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import CategoryPage from "./pages/CategoryPage";
 import QuestionsPage from "./pages/QuestionsPage";
 
-
 const routes = () => {
   return (
     <Suspense fallback={null}>
       <Routes>
         {/* Categories Page */}
-        <Route
-          exact path="/categories"
-          element={<CategoryPage />}
-        />
+        <Route exact path="/categories" element={<CategoryPage />} />
 
         {/* Category Questions Page */}
         <Route
@@ -29,7 +25,6 @@ const routes = () => {
           path="/"
           element={<Navigate to="/categories" replace={true} />}
         />
-
       </Routes>
     </Suspense>
   );

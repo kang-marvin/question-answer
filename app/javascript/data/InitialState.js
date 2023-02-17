@@ -2,19 +2,19 @@ const InitialState = {
   category: {
     id: null,
     title: null,
-    question_ids: []
+    question_ids: [],
   },
 
   question: {
     id: null,
     content_body: null,
     countdown_timer: null,
-    answers: []
+    answers: [],
   },
 
   controlManager: {
     hasTimeElapsed: false,
-    submittedAnswers: []
+    submittedAnswers: [],
   },
 
   pagination: {
@@ -22,8 +22,8 @@ const InitialState = {
     nextPage: null,
     previousPage: null,
     totalPages: 1,
-    totalEntries: 0
+    totalEntries: 0,
   },
-}
+};
 
-export default InitialState
+export default InitialState;
