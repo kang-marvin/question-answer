@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
       nextPage: object.next_page,
       previousPage: object.previous_page,
       totalPages: object.total_pages,
-      totalEntries: nil #object.total_entries
+      totalEntries: nil # object.total_entries
     }
   end
 end

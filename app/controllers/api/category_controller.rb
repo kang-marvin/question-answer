@@ -6,7 +6,7 @@ module API
       categories =
         Category
         .filter_title(category_params[:searchString])
-        .paginate(page: params[:page], per_page: 10)
+        .paginate(page: params[:page], per_page: 8)
 
       render json: categories,
              each_serializer: LimitedCategorySerializer,
