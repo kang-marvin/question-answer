@@ -5,7 +5,7 @@ const ResultsPanel = props => {
   const { results = [], totalQuestionsCount } = props
 
   const CorrectAnswersCountFromResult = (result) => {
-    return result.filter(el => el === "true").length
+    return result.filter(el => el.toUpperCase() === "TRUE").length
   }
 
   return (

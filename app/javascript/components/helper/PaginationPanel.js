@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from "react";
-import AnchorTagField from "../form_fields/AnchorTagField";
+import React, { useEffect, useState } from "react"
+import AnchorTagField from "../form_fields/AnchorTagField"
 
-const DEFAULT_PAGINATION = {
-  currentPage: 1,
-  nextPage: null,
-  previousPage: null,
-  totalPages: 1,
-  totalEntries: 0
-}
+import InitialState from "../../data/InitialState"
+
+const DEFAULT_PAGINATION = InitialState.pagination
 
 const PaginationPanel = props => {
 

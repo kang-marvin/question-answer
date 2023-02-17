@@ -43,6 +43,7 @@ const TimerPanel = props => {
     stopTimer();
   }
 
+  /** When the counter changes */
   useEffect(() => {
     if (count > 0) {
       timer();
@@ -51,6 +52,7 @@ const TimerPanel = props => {
     }
   }, [count])
 
+  /** When the question changes */
   useEffect(() => {
     setCount(countdown)
   }, [props.question, countdown])

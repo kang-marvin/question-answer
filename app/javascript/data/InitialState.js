@@ -23,7 +23,7 @@ const InitialState = {
     previousPage: null,
     totalPages: 1,
     totalEntries: 0
-  }
+  },
 }
 
 export default InitialState

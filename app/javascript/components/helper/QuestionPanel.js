@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 
-import QuestionControlsPanel from "./QuestionControlsPanel"
+import { QuestionControlsPanel } from "./index"
 
 const LabelColor = (answer, selectedAnswer, submittedAnswer) => {
   if (selectedAnswer === null) { return "hover:bg-gray-100" }
@@ -11,11 +11,11 @@ const LabelColor = (answer, selectedAnswer, submittedAnswer) => {
       : "hover:bg-gray-100"
     return result
   } else if (answer.id === submittedAnswer.id) {
-    const result = submittedAnswer.is_correct === "true"
+    const result = submittedAnswer.is_correct.toUpperCase() === "TRUE"
       ? "outline-2 outline outline-green-300 bg-green-100"
       : "outline-2 outline outline-red-300 bg-red-100"
     return result
-  } else if (answer.is_correct === "true") {
+  } else if (answer.is_correct.toUpperCase() === "TRUE") {
     return "outline-2 outline outline-green-300 bg-green-100"
   }
 }
